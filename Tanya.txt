@@ -1,0 +1,6 @@
+1.1. apakah boleh 3 label?
+
+1.2. jika tidak, label mana yang di pake?
+Camat B-JABATAN
+Kaki B-PERSON
+Koewoso I-PERSON
