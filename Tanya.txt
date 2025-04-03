@@ -1,6 +1,52 @@
-1.1. apakah boleh 3 label?
+1.1. apakah boleh 3 label? OKE
+1.2. jika tidak, label mana yang di pake? OKE
 
-1.2. jika tidak, label mana yang di pake?
+
 Camat B-JABATAN
 Kaki B-PERSON
 Koewoso I-PERSON
+
+
+Bank O
+BPR O
+BKK O
+Taman O
+Cabang O
+Watukumpul B-KECAMATAN
+
+Pendidikan O
+di O
+Desa O
+Watukumpul B-DESA
+
+
+Pulau B-LOCATION
+Ambon B-LOCATION atau Ambon O
+, O
+dan O
+Pulau B-LOCATION Pulau O
+Seram B-LOCATION atau Seram O
+
+Kerajaan B-LOCATION atau Kerajaan O
+Majapahit B-LOCATION atau Majapahit O
+
+SMP O
+N O atau N B-ORGANIZATION
+1 O atau 2 I-ORGANIZATION  
+Kediri B-KABKOTA atau Kediri I-ORGANIZATION  
+
+
+Mohammad B-PERSON
+Fattah I-PERSON
+Riphat I-PERSON
+, O
+S.H. O atau S.H. I-PERSON
+, O
+M.H. O atau M.H. I-PERSON
+
+
+bersama O
+bandnya O
+CB B-ORGANIZATION atau CB O
+Band I-ORGANIZATION BAND O
+. O
