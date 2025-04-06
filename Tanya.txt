@@ -50,3 +50,20 @@ bandnya O
 CB B-ORGANIZATION atau CB O
 Band I-ORGANIZATION BAND O
 . O
+
+
+kraton O
+Mataram O atau Mataram B-KABKOTA
+
+
+diberi O
+nama O
+beras O
+Dewi O atau Dewi B-PERSON
+
+
+Dr. B-PERSON  atau Dr. O
+Anwar I-PERSON 
+S.H. I-PERSON  atau S.H. O
+, O  
+M.H. I-PERSON  atau M.H O

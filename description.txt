@@ -1,0 +1,136 @@
+**Deskripsi Proyek Manual Labeling (Non-Label Studio)**
+
+### **Tujuan Proyek**
+Proyek ini bertujuan untuk melakukan pelabelan manual pada teks dengan format tertentu tanpa menggunakan Label Studio. Pelabelan dilakukan untuk mengidentifikasi entitas lokasi, organisasi, jabatan, dan nama orang dalam teks menggunakan format B-{LABEL} untuk kata pertama dan I-{LABEL} untuk kata berikutnya dalam entitas yang sama.
+
+---
+
+### **Format Transformasi Data**
+Data sebelum dan sesudah pelabelan mengikuti aturan berikut:
+
+1. **Struktur Dasar:**
+   - Kata pertama dari suatu entitas diberikan label dengan format **B-{LABEL}**.
+   - Kata-kata selanjutnya dalam entitas yang sama diberikan label **I-{LABEL}**.
+   - Kata-kata lain yang tidak termasuk dalam kategori tertentu diberi label **O**.
+
+2. **Contoh Transformasi Data:**
+
+#### **Sebelum:**
+```
+Kecamatan Gabus Jawa Tengah.
+```
+#### **Setelah:**
+```
+Kecamatan O
+Gabus B-KECAMATAN
+Jawa B-PROVINSI
+Tengah I-PROVINSI
+. O
+```
+
+#### **Sebelum:**
+```
+sekali.Desa 0
+```
+#### **Setelah:**
+```
+sekali O
+. O
+Desa O
+```
+
+#### **Sebelum:**
+```
+desa-desa 0
+```
+#### **Setelah:**
+```
+desa O
+- O
+desa O
+```
+
+#### **Sebelum:**
+```
+dukuh/desa 0
+```
+#### **Setelah:**
+```
+dukuh O
+/ O
+desa O
+```
+
+Dusun O,
+Dusun Sukahiji = 
+Dusun O
+Sukahiji O
+
+Duku Simulang = 
+Duku O
+Simulang O
+---
+
+### **Pengecualian dan Aturan Khusus**
+1. Kata yang masih merupakan satu kesatuan tidak perlu dipecah ke dalam beberapa baris.
+   - **Contoh:**
+     - "masing-masing" diberi label **O** secara keseluruhan, bukan per kata.
+     - "Menteri" diberi label **O**.
+
+2. Entitas yang merupakan bagian dari nama organisasi atau nama orang harus dipastikan keterkaitannya.
+   - **Contoh:**
+     - "Columbia College Chicago" harus diidentifikasi sebagai satu organisasi.
+       ```
+       Columbia B-ORGANIZATION
+       College I-ORGANIZATION
+       Chicago I-ORGANIZATION
+       ```
+     - "Ahmad al-Mutamakkin" harus diidentifikasi sebagai satu nama orang.
+       ```
+       Ahmad B-PERSON
+       al-Mutamakkin I-PERSON
+       ```
+    - "Syech Khoyum Masalik S.Pd"
+```
+Syech O
+Khoyum B-PERSON
+Masalik I-PERSON
+S.Pd O
+```
+
+3. **Penamaan Label harus menggunakan huruf kapital**
+   - **Daftar Label yang Digunakan:**
+     - B-PERSON, I-PERSON
+     - B-JABATAN, I-JABATAN
+     - B-ORGANIZATION, I-ORGANIZATION
+     - B-NEGARA, I-NEGARA
+     - B-PROVINSI, I-PROVINSI
+     - B-KABKOTA, I-KABKOTA
+     - B-KECAMATAN, I-KECAMATAN
+     - B-DESA, I-DESA
+
+4. **Contoh Kasus Kompleks:**
+   - Input: `sd negeri 1 ciawi, desa ciawi, kecamatan bogor, kabupaten bogor selatan`
+   - Output:
+     ```
+     sd O
+     negeri B-ORGANIZATION
+     1 I-ORGANIZATION
+     ciawi I-ORGANIZATION
+     , O
+     desa O
+     ciawi B-DESA
+     , O
+     kecamatan O
+     bogor B-KECAMATAN
+     , O
+     kabupaten O
+     bogor B-KABKOTA
+     selatan I-KABKOTA
+     , O
+     ```
+
+---
+
+### **Kesimpulan**
+Proyek ini melibatkan proses manual untuk memberikan label pada teks berdasarkan aturan yang telah ditentukan. Fokus utama adalah dalam mengidentifikasi lokasi, organisasi, jabatan, dan nama orang dengan struktur label yang jelas dan konsisten. Semua kata yang tidak termasuk dalam kategori tersebut akan diberi label **O**, kecuali untuk beberapa kasus khusus yang memerlukan pengecekan kontekstual lebih lanjut.
