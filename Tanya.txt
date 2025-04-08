@@ -51,6 +51,9 @@ CB B-ORGANIZATION atau CB O
 Band I-ORGANIZATION BAND O
 . O
 
+Dewa B-ORGANIZATION
+19 I-ORGANIZATION
+
 
 kraton O
 Mataram O atau Mataram B-KABKOTA
@@ -67,3 +70,44 @@ Anwar I-PERSON
 S.H. I-PERSON  atau S.H. O
 , O  
 M.H. I-PERSON  atau M.H O
+
+
+apakah nama film/sinetron/buku masuk ke O/organisasi?
+yaitu O
+dalam O
+film O
+`` O
+Antara O
+Aku O
+, O
+Piano O
+, O
+dan O
+Puisimu O
+
+apakah bandara masuk ke organisasi?
+Bandara O atau Badara B-ORGANIZATION
+Internasional O atau Internasional I-ORGANIZATION
+Ngurah B-PERSON atau Ngurah I-ORGANIZATION
+Rai I-PERSON atau Rai I-ORGANIZATION
+Bali B-PROVINSI atau Bali I-ORGANIZATION
+
+apakah kerajaan masuk ke B-NEGARA?
+Kerajaan O atau Kerajaan B-NEGARA
+Majapahit O atau Majapahit I-NEGARA
+Kerajaan O
+kraton O
+Mataram O atau Mataram B-KABKOTA
+
+apakah masuk ke lokasi B-DESA/B-KECAMATAN/B-KABKOTA?
+Pulau B-O
+Ambon B-O atau Ambon B-KABKOTA
+, O
+dan O
+Pulau B-O Pulau O
+Seram B-O atau Seram B-KABKOTA
+
+apakah nama band/grup musik masuk ke organisasi?
+Dewa O atau Dewa B-ORGANIZATION
+19 O atau 19 I-ORGANIZATION
+
