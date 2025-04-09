@@ -22,10 +22,10 @@ I-DESA
 11238 - 15044 = H+5 TARGET ✅
 15044 - 20034 = H+6 TARGET ✅
 19173 - 22034 = H+7 TARGET ✅
-20034 - 26013 = H+7 TARGET
- 2001
+20034 - 22034 - 26013 = H+7 TARGET ✅
+
 
 
 git add .
-git commit -m "update h+7 bs"
-git push                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+git commit -m "update h+8"
+git push
