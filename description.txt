@@ -1,177 +1,165 @@
-Proyek Manual Labeling Teks
-Tujuan
-Proyek ini bertujuan untuk melabeli teks secara manual tanpa menggunakan Label Studio, dengan mengidentifikasi:
+## **Proyek Manual Labeling Teks**
 
-Lokasi (Provinsi, Kabupaten/Kota, Kecamatan, Desa)
+### **Tujuan**
+Proyek ini bertujuan untuk memberi label entitas secara manual pada teks tanpa menggunakan *Label Studio*. Pelabelan dilakukan dengan mengidentifikasi entitas sebagai berikut:
 
-Organisasi
+- Lokasi administratif (Provinsi, Kabupaten/Kota, Kecamatan, Desa)
+- Organisasi
+- Jabatan
+- Nama Orang
 
-Jabatan
+Label menggunakan format standar **BIO (Begin-Inside-Outside)**:
+- `B-{LABEL}` → Kata pertama dari sebuah entitas
+- `I-{LABEL}` → Kata selanjutnya dalam entitas yang sama
+- `O` → Kata yang bukan bagian dari entitas mana pun
 
-Nama Orang
+---
 
-Format label mengikuti standar BIO (Begin-Inside-Outside):
+### **Aturan Pelabelan**
 
-B-{LABEL} → Kata pertama dari suatu entitas.
+#### **1. Struktur Dasar**
+- Setiap kata ditulis dalam baris terpisah.
+- Label diberikan berdasarkan konteks.
+  
+**Contoh:**
+**Teks asli:**  
+`Kecamatan Gabus Jawa Tengah.`
 
-I-{LABEL} → Kata lanjutan dalam entitas yang sama.
-
-O → Kata yang bukan termasuk entitas.
-
-Aturan Pelabelan
-1. Struktur Dasar
-Setiap kata dipisahkan ke dalam baris terpisah.
-
-Label diberikan sesuai konteksnya.
-
-Contoh:
-Sebelum:
-
-Copy
-Kecamatan Gabus Jawa Tengah.  
-Sesudah:
-
-Copy
+**Output:**  
+```
 Kecamatan O  
 Gabus B-KECAMATAN  
 Jawa B-PROVINSI  
 Tengah I-PROVINSI  
-. O  
-2. Kasus Khusus
-Gabungan kata dengan tanda hubung/slash: Dipisah per kata.
-
-Contoh:
-
-Copy
-desa-desa → desa O - O desa O  
-dukuh/desa → dukuh O / O desa O  
-Nama orang dengan gelar:
-
-Nama asli diberi label B-PERSON/I-PERSON, gelar diberi O.
-
-Contoh:
-
-Copy
-Syech Khoyum Masalik S.Pd →  
-Syech O  
-Khoyum B-PERSON  
-Masalik I-PERSON  
-S.Pd O  
-Organisasi/Negara:
-
-Jika terdiri dari beberapa kata, lanjutkan dengan I-ORGANIZATION/I-NEGARA.
-
-Contoh:
-
-Copy
-SMP Negeri 1 Ciawi →  
-SMP B-ORGANIZATION  
-Negeri I-ORGANIZATION  
-1 I-ORGANIZATION  
-Ciawi I-ORGANIZATION  
-3. Daftar Label yang Digunakan
-Kategori	Format Label	Contoh Penggunaan
-Nama Orang	B-PERSON, I-PERSON	Ahmad B-PERSON, al-Mutamakkin I-PERSON
-Jabatan	B-JABATAN, I-JABATAN	Direktur B-JABATAN, Utama I-JABATAN
-Organisasi	B-ORGANIZATION, I-ORGANIZATION	Columbia B-ORGANIZATION, College I-ORGANIZATION
-Negara	B-NEGARA, I-NEGARA	Indonesia B-NEGARA, Timur I-NEGARA
-Provinsi	B-PROVINSI, I-PROVINSI	Jawa B-PROVINSI, Barat I-PROVINSI
-Kabupaten/Kota	B-KABKOTA, I-KABKOTA	Bogor B-KABKOTA, Selatan I-KABKOTA
-Kecamatan	B-KECAMATAN, I-KECAMATAN	Gabus B-KECAMATAN
-Desa	B-DESA, I-DESA	Sukahiji B-DESA
-4. Pengecualian
-Kata yang sudah merupakan satu kesatuan tidak dipisah:
-
-Contoh:
-
-"masing-masing" → O (bukan per kata).
-
-"Menteri" → O (kecuali jika bagian dari nama jabatan).
-
-Kata umum (tidak spesifik) diberi O:
-
-Contoh: "desa", "kecamatan", "kabupaten" → O kecuali jika merupakan bagian dari nama resmi.
-
-Contoh Lengkap
-Input:
-
-Copy
-sd negeri 1 ciawi, desa ciawi, kecamatan bogor, kabupaten bogor selatan  
-Output:
-
-
-contoh
-institut Pertanian Bogor
-institut B-ORGANIZATION
-Pertanian I-ORGANIZATION
-Bogor I-ORGANIZATION
-
-
-contoh
-Kota Bogor
-Kota O
-Bogor B-KABKOTA
-
-Copy
-sd O  
-negeri B-ORGANIZATION  
-1 I-ORGANIZATION  
-ciawi I-ORGANIZATION  
-, O  
-desa O  
-ciawi B-DESA  
-, O  
-kecamatan O  
-bogor B-KECAMATAN  
-, O  
-kabupaten O  
-bogor B-KABKOTA  
-selatan I-KABKOTA  
-
-
-contoh lainya
-
-Bandara O
-Internasional O
-Ngurah B-PERSON
-Rai I-PERSON
-Bali B-PROVINSI
-
-
-nama film/sibetrron masuk ke O? contoh 
-yaitu O
-dalam O
-film O
-`` O
-Antara O
-Aku O
-, O
-Piano O
-, O
-dan O
-Puisimu O
-
-
-bersama O
-bandnya O
-CB B-ORGANIZATION atau CB O
-Band I-ORGANIZATION BAND O
 . O
+```
 
-Dewa B-ORGANIZATION
-19 I-ORGANIZATION
+---
 
-Kesimpulan
-Fokus: Identifikasi entitas dengan benar dan konsisten.
+#### **2. Penanganan Kasus Khusus**
 
-Pastikan:
+- **Gabungan kata dengan tanda hubung/slash:** Dipisah per kata dan semua diberi label `O`.  
+  Contoh:  
+  `desa-desa` →  
+  ```
+  desa O  
+  - O  
+  desa O
+  ```
 
-Setiap kata dipisah ke baris baru.
+  `dukuh/desa` →  
+  ```
+  dukuh O  
+  / O  
+  desa O
+  ```
 
-Label diawali huruf kapital (B-PERSON, bukan b-person).
+- **Nama orang dengan gelar:**  
+  Gelar diberi label `O`, nama asli diberi `B-PERSON` dan `I-PERSON`.  
+  Contoh:  
+  `Syech Khoyum Masalik S.Pd` →  
+  ```
+  Syech O  
+  Khoyum B-PERSON  
+  Masalik I-PERSON  
+  S.Pd O
+  ```
 
-Berikan label yang sesuai.
+- **Nama organisasi/negara (lebih dari satu kata):**  
+  Lanjutkan dengan `I-ORGANIZATION` atau `I-NEGARA`.  
+  Contoh:  
+  `SMP Negeri 1 Ciawi` →  
+  ```
+  SMP B-ORGANIZATION  
+  Negeri I-ORGANIZATION  
+  1 I-ORGANIZATION  
+  Ciawi I-ORGANIZATION
+  ```
 
-Label hanya yang di atas.
+---
 
-Gunakan O untuk kata non-entitas.
+### **3. Daftar Label yang Digunakan**
+
+| **Kategori**       | **Label**                        | **Contoh**                                 |
+|--------------------|----------------------------------|--------------------------------------------|
+| Nama Orang         | B-PERSON, I-PERSON               | Ahmad B-PERSON, al-Mutamakkin I-PERSON     |
+| Jabatan            | B-JABATAN, I-JABATAN             | Direktur B-JABATAN, Utama I-JABATAN        |
+| Organisasi         | B-ORGANIZATION, I-ORGANIZATION   | Columbia B-ORGANIZATION, College I-ORGANIZATION |
+| Negara             | B-NEGARA, I-NEGARA               | Indonesia B-NEGARA, Timur I-NEGARA         |
+| Provinsi           | B-PROVINSI, I-PROVINSI           | Jawa B-PROVINSI, Barat I-PROVINSI          |
+| Kabupaten/Kota     | B-KABKOTA, I-KABKOTA             | Bogor B-KABKOTA, Selatan I-KABKOTA         |
+| Kecamatan          | B-KECAMATAN, I-KECAMATAN         | Gabus B-KECAMATAN                           |
+| Desa               | B-DESA, I-DESA                   | Sukahiji B-DESA                             |
+| Tempat             | B-PLACE, I-PLACE                 | Ngurah B-PLACE, Rai I-PLACE                 |
+
+---
+
+### **4. Pengecualian dan Tambahan Aturan**
+
+- **Kata yang merupakan satu kesatuan tidak dipisah.**  
+  Contoh:  
+  `"masing-masing"` → `O`  
+  `"Menteri"` → `O` (kecuali bagian dari jabatan)
+
+- **Kata umum tanpa spesifik nama diberi `O`.**  
+  Contoh:  
+  `"desa"`, `"kecamatan"`, `"kabupaten"` → `O`, kecuali menjadi bagian dari nama seperti “Desa Sukahiji”.
+
+- **Nama film, buku, sinetron, cerita yang mengandung nama orang:**  
+  Label sebagai `PERSON`.  
+  Contoh:  
+  ```
+  Habibie B-PERSON  
+  & I-PERSON  
+  Ainun I-PERSON
+  ```
+
+- **Nama lokasi yang mengandung kata 'pulau':**  
+  Label sebagai `O`.  
+  Contoh:  
+  ```
+  Pulau O  
+  Ambon O
+  ```
+
+- **Nama kerajaan:**  
+  Label nama kerajaan sebagai `NEGARA`.  
+  Contoh:  
+  ```
+  kerajaan O  
+  Demak B-NEGARA
+  ```
+
+- **Nama bandara/airport:**  
+  Nama bandara dilabel sebagai `PLACE` dan nama tokoh di dalamnya sebagai `PERSON`.  
+  Contoh:  
+  ```
+  Bandara O  
+  Internasional B-PERSON  
+  Ngurah I-PERSON  
+  Rai I-PERSON  
+  Bali I-PROVINSI
+  ```
+
+- **Nama grup musik atau organisasi teroris:**  
+  Label sebagai `ORGANIZATION`.  
+  Contoh:  
+  ```
+  Dewa B-ORGANIZATION  
+  19 I-ORGANIZATION
+  ```
+
+---
+
+### **Catatan Penting**
+**Jangan gunakan label selain yang ada di daftar berikut:**
+
+- `B-PERSON`, `I-PERSON`  
+- `B-JABATAN`, `I-JABATAN`  
+- `B-ORGANIZATION`, `I-ORGANIZATION`  
+- `B-NEGARA`, `I-NEGARA`  
+- `B-PROVINSI`, `I-PROVINSI`  
+- `B-KABKOTA`, `I-KABKOTA`  
+- `B-KECAMATAN`, `I-KECAMATAN`  
+- `B-DESA`, `I-DESA`  
+- `B-PLACE`, `I-PLACE`
