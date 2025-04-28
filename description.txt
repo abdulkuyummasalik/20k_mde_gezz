@@ -110,8 +110,8 @@ Tengah I-PROVINSI
   Contoh:  
   ```
   Habibie B-PERSON  
-  & I-PERSON  
-  Ainun I-PERSON
+  & O
+  Ainun B-PERSON
   ```
 
 - **Nama lokasi yang mengandung kata 'pulau':**  
