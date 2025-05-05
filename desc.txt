@@ -1,0 +1,102 @@
+## **Proyek Manual Labeling Teks**
+
+### **Tujuan**
+
+Proyek ini bertujuan untuk memberi label entitas secara manual pada teks dengan format **BIO (Begin-Inside-Outside)** tanpa menggunakan *Label Studio*. Label diberikan pada jenis entitas berikut:
+
+* Lokasi administratif (Provinsi, Kabupaten/Kota, Kecamatan, Desa)
+* Organisasi
+* Jabatan
+* Nama Orang
+
+Format BIO:
+
+* `B-{LABEL}` → Kata pertama dari entitas
+* `I-{LABEL}` → Kata setelahnya dalam entitas yang sama
+* `O` → Kata yang bukan bagian dari entitas apa pun
+
+---
+
+### **Aturan Pelabelan**
+
+#### **1. Struktur Umum**
+
+* Setiap kata ditulis dalam baris terpisah.
+* Label diberikan berdasarkan konteks.
+
+**Contoh:**
+
+*Teks asli:*
+`Kecamatan Gabus Jawa Tengah.`
+
+*Output:*
+
+```
+Kecamatan O  
+Gabus B-KECAMATAN  
+Jawa B-PROVINSI  
+Tengah I-PROVINSI  
+. O
+```
+
+---
+
+#### **2. Penanganan Kasus Khusus**
+
+| Kasus Khusus                                    | Penanganan                                              | Contoh                                                                                                                                |
+| ----------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| **Tanda hubung/slash**                          | Pisah per kata, semua `O`                               | `desa-desa` → `desa O`, `- O`, `desa O`                                                                                               |
+| **Nama orang dengan gelar**                     | Gelar = `O`, nama = `B/I-PERSON`                        | `Syech Khoyum Masalik S.Pd` → `Syech O`, `Khoyum B-PERSON`, `Masalik I-PERSON`, `S.Pd O`                                              |
+| **Organisasi/Nama negara**                      | `B/I-ORGANIZATION` atau `B/I-NEGARA`                    | `SMP Negeri 1 Ciawi` → `SMP B-ORGANIZATION`, `Negeri I-ORGANIZATION`, dst                                                             |
+| **Nama film/buku/cerita mengandung nama orang** | Gunakan `PERSON`                                        | `Habibie & Ainun` → `Habibie B-PERSON`, `& O`, `Ainun B-PERSON`                                                                       |
+| **Nama lokasi dengan 'Pulau'**                  | Semua `O`                                               | `Pulau Ambon` → `Pulau O`, `Ambon O`                                                                                                  |
+| **Nama kerajaan**                               | Label nama kerajaan sebagai `NEGARA`                    | `kerajaan O`, `Demak B-NEGARA`                                                                                                        |
+| **Nama bandara/airport**                        | Nama tokoh = `PERSON`, lokasi = `PROVINSI` atau `PLACE` | `Bandara Internasional Ngurah Rai Bali` → `Bandara O`, `Internasional B-PERSON`, `Ngurah I-PERSON`, `Rai I-PERSON`, `Bali I-PROVINSI` |
+| **Grup musik/organisasi teroris**               | Label sebagai `ORGANIZATION`                            | `Dewa 19` → `Dewa B-ORGANIZATION`, `19 I-ORGANIZATION`                                                                                |
+
+---
+
+#### **3. Daftar Label yang Digunakan**
+
+| **Kategori**   | **Label**                          | **Contoh**                                      |
+| -------------- | ---------------------------------- | ----------------------------------------------- |
+| Nama Orang     | `B-PERSON`, `I-PERSON`             | Ahmad B-PERSON, al-Mutamakkin I-PERSON          |
+| Jabatan        | `B-JABATAN`, `I-JABATAN`           | Direktur B-JABATAN, Utama I-JABATAN             |
+| Organisasi     | `B-ORGANIZATION`, `I-ORGANIZATION` | Columbia B-ORGANIZATION, College I-ORGANIZATION |
+| Negara         | `B-NEGARA`, `I-NEGARA`             | Indonesia B-NEGARA, Timur I-NEGARA              |
+| Provinsi       | `B-PROVINSI`, `I-PROVINSI`         | Jawa B-PROVINSI, Barat I-PROVINSI               |
+| Kabupaten/Kota | `B-KABKOTA`, `I-KABKOTA`           | Bogor B-KABKOTA, Selatan I-KABKOTA              |
+| Kecamatan      | `B-KECAMATAN`, `I-KECAMATAN`       | Gabus B-KECAMATAN                               |
+| Desa           | `B-DESA`, `I-DESA`                 | Sukahiji B-DESA                                 |
+| Tempat         | `B-PLACE`, `I-PLACE`               | Ngurah B-PLACE, Rai I-PLACE                     |
+
+---
+
+#### **4. Tambahan dan Klarifikasi**
+
+* **Kata umum tanpa nama spesifik diberi `O`.**
+  Contoh: `"desa"`, `"kecamatan"`, `"kabupaten"` → `O`, kecuali jika jadi bagian dari nama lengkap.
+
+* **Kata majemuk tidak dipisah jika merupakan satu makna.**
+  Contoh: `"masing-masing"` → `O`
+
+* **Kata "menteri pertahanan":**
+
+  * Jika sebagai **nama organisasi** → label sebagai `ORGANIZATION`
+  * Jika sebagai **nama jabatan** lengkap seperti “Ketua Menteri Pertahanan” → label sebagai `JABATAN`
+
+---
+
+### **Catatan Penting**
+
+**Hanya gunakan label berikut:**
+
+* `B-PERSON`, `I-PERSON`
+* `B-JABATAN`, `I-JABATAN`
+* `B-ORGANIZATION`, `I-ORGANIZATION`
+* `B-NEGARA`, `I-NEGARA`
+* `B-PROVINSI`, `I-PROVINSI`
+* `B-KABKOTA`, `I-KABKOTA`
+* `B-KECAMATAN`, `I-KECAMATAN`
+* `B-DESA`, `I-DESA`
+* `B-PLACE`, `I-PLACE`

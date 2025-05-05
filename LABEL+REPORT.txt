@@ -40,7 +40,10 @@ I-PLACE
 68508 - 73343 = H+21 TARGET ✅ - 30/4/2025
 73343 - 78967 = H+22 TARGET ✅ - 2/5/2025 -> 2_5
 
+78967 - 83460 = H+23 TARGET ✅ - 5/5/2025
+83460 - 88962 = H+24 TARGET ✅ - 6/5/2025 -> 6_5
+
 
 git add .
-git commit -m "update h+21 (90%)"
+git commit -m "update h+24 (90%)"
 git push

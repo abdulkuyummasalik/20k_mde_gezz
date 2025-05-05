@@ -149,6 +149,10 @@ Tengah I-PROVINSI
   19 I-ORGANIZATION
   ```
 
+
+menteri pertahanan masuk ke organisasi
+ketua menteri pertahanan masuk ke jabatan
+
 ---
 
 ### **Catatan Penting**
