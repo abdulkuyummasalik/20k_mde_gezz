@@ -100,3 +100,19 @@ Tengah I-PROVINSI
 * `B-KECAMATAN`, `I-KECAMATAN`
 * `B-DESA`, `I-DESA`
 * `B-PLACE`, `I-PLACE`
+
+
+contoh lainya
+Teks: Gubernur Jawa Barat Ridwan Kamil.
+
+Output:
+Gubernur B-JABATAN
+Jawa I-JABATAN
+Barat I-JABATAN
+Ridwan B-PERSON
+Kamil I-PERSON
+. O
+
+karena ngambung jadi jabatan
+
+TIDAK ADA LABEL LAIN
