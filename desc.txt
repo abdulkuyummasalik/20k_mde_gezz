@@ -113,6 +113,8 @@ Ridwan B-PERSON
 Kamil I-PERSON
 . O
 
+NEGARA BAGIAN MASUK KE PROVINSI contoh CALIFORNIA, new york dll
+
 karena ngambung jadi jabatan
 
 TIDAK ADA LABEL LAIN
