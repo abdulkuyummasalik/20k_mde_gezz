@@ -1,0 +1,113 @@
+### ✅ **FORM 1: Pemahaman Tugas (Wajib Dibaca Sebelum Mulai)**  
+**Judul:** *Konfirmasi Pemahaman Aturan Pelabelan*  
+
+**Instruksi:**  
+1. **Baca dokumen aturan pelabelan** dengan cermat, termasuk:  
+   - Tujuan: Memberi label entitas (Lokasi, Organisasi, Jabatan, Nama Orang) dalam format **BIO**.  
+   - Daftar label resmi (`B-PERSON`, `B-JABATAN`, dll.) **Tidak boleh menambahkan label baru**.  
+   - Contoh kasus khusus (e.g., nama bandara, kerajaan, gabungan kata).  
+
+2. **Pahami kriteria berikut:**  
+   - Setiap kata **harus** diberi label, tidak boleh kosong.  
+   - Struktur teks asli (baris, tanda baca) tidak boleh diubah.  
+   - Negara bagian (e.g., California) termasuk `PROVINSI`.  
+
+3. **Konfirmasi:**  
+   ```  
+   [✔] Saya telah membaca dan memahami seluruh aturan, termasuk daftar label yang diperbolehkan serta penanganan kasus khusus. Saya siap memulai.  
+   ```  
+
+---
+
+### ✅ **FORM 2: Eksekusi Labeling Batch Pertama**  
+**Judul:** *Pelabelan Data Batch 1*  
+
+**Instruksi:**  
+1. **Label setiap kata** dalam teks berikut sesuai format BIO:  
+   ```  
+   Contoh Teks:  
+   "Ketua Menteri Pertahanan Singapura Lee Hsien Loong mengunjungi Jawa Barat."  
+   ```  
+
+2. **Hasil Labeling (Contoh Benar):**  
+   ```  
+   Ketua B-JABATAN  
+   Menteri I-JABATAN  
+   Pertahanan I-JABATAN  
+   Singapura B-NEGARA  
+   Lee B-PERSON  
+   Hsien I-PERSON  
+   Loong I-PERSON  
+   mengunjungi O  
+   Jawa B-PROVINSI  
+   Barat I-PROVINSI  
+   . O  
+   ```  
+
+3. **Langkah Validasi:**  
+   - [ ] Semua kata terlabel (termasuk tanda baca).  
+   - [ ] Tidak ada label baru (hanya yang tercantum di FORM 1).  
+   - [ ] Struktur teks asli tetap utuh.  
+
+---
+
+### ✅ **FORM 3: Evaluasi dan Pengulangan Aturan**  
+**Judul:** *Pengecekan Ulang Sebelum Batch Berikutnya*  
+
+**Instruksi:**  
+1. **Baca ulang aturan berikut:**  
+   - Label untuk **"menteri pertahanan"**:  
+     - Sebagai organisasi → `B-ORGANIZATION`.  
+     - Sebagai jabatan (e.g., "Ketua Menteri Pertahanan") → `B/I-JABATAN`.  
+   - Nama orang dengan gelar (e.g., "Dr. Ahmad") → `Dr. O`, `Ahmad B-PERSON`.  
+
+2. **Periksa konsistensi Batch 1:**  
+   - Apakah semua entitas **multi-kata** (e.g., "Jawa Barat") diberi label `I-` yang benar?  
+   - Apakah **tanda hubung/slash** sudah dipisah dan diberi `O`?  
+
+3. **Konfirmasi Kelanjutan:**  
+   ```  
+   [✔] Saya telah mengevaluasi Batch 1 dan memahami 100% aturan. Saya siap melanjutkan dengan konsistensi yang sama.  
+   ```  
+
+---
+
+### ✅ **FORM 4: Pelabelan Batch Lanjutan**  
+**Judul:** *Eksekusi Labeling Batch 2 dan Seterusnya*  
+
+**Instruksi:**  
+1. **Label teks berikut:**  
+   ```  
+   Contoh Teks:  
+   "Bandara Internasional Soekarno-Hatta di Banten."  
+   ```  
+
+2. **Hasil Labeling (Contoh Benar):**  
+   ```  
+   Bandara O  
+   Internasional B-PERSON  
+   Soekarno B-PERSON  
+   - O  
+   Hatta I-PERSON  
+   di O  
+   Banten B-PROVINSI  
+   . O  
+   ```  
+
+3. **Kriteria Tambahan:**  
+   - **Nama bandara**: Token nama tokoh (`Soekarno`, `Hatta`) = `PERSON`, lokasi (`Banten`) = `PROVINSI`.  
+   - **Tanda hubung**: Dipisah dan diberi `O`.  
+
+4. **Final Check:**  
+   - [ ] Tidak ada label seperti `B-LOCATION` atau `I-ORG` (harus `B-ORGANIZATION`).  
+   - [ ] Kata umum (e.g., "di") tetap `O`.  
+
+---
+
+### **Catatan Penting Semua Form:**  
+- **Label Hanya Ini yang Berlaku:**  
+  ```  
+  PERSON, JABATAN, ORGANIZATION, NEGARA, PROVINSI, KABKOTA, KECAMATAN, DESA, PLACE  
+  ```  
+- **Pelanggaran Aturan = Hasil Ditolak.**  
+- **Gunakan Form 3 untuk evaluasi setiap selesai 1 batch.**
