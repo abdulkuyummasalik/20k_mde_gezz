@@ -3,7 +3,7 @@
 
 **Instruksi:**  
 1. **Baca dokumen aturan pelabelan** dengan cermat, termasuk:  
-   - Tujuan: Memberi label entitas (Lokasi, Organisasi, Jabatan, Nama Orang) dalam format **BIO**.  
+   - Tujuan: Memberi label entitas (Lokasi(DESA, KECAMATAN, KABKOTA, PROVINSI, NEGARA), Organisasi, Jabatan, Nama Orang) dalam format **BIO**.  
    - Daftar label resmi (`B-PERSON`, `B-JABATAN`, dll.) **Tidak boleh menambahkan label baru**.  
    - Contoh kasus khusus (e.g., nama bandara, kerajaan, gabungan kata).  
 
